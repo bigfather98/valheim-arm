@@ -51,6 +51,25 @@ https://github.com/FEX-Emu/FEX/blob/main/FEXCore/Source/Interface/Config/Config.
 | world              | /root/.config/unity3d/IronGate/Valheim | path that holds the persistent world files         |
 Place your plugins in the ./valheim/server/BepInEx/plugins folder.
 
+### Using an existing world from the Steam client
+
+If you played single-player or on a friends' server, your world files (`.db` and `.fwl`) may not be in `worlds_local` on your PC. The Steam client now keeps them in Steam Cloud:
+
+```
+C:\Program Files (x86)\Steam\userdata\<steamid>\892970\remote\worlds\<worldname>.db
+C:\Program Files (x86)\Steam\userdata\<steamid>\892970\remote\worlds\<worldname>.fwl
+```
+
+To use that world on the dedicated server:
+
+1. Copy both files into `./valheim/persistentdata/worlds_local/` on your VPS.
+2. Set `SERVER_WORLD=<worldname>` in docker-compose.yml (e.g. `KIRKS`).
+3. Run `docker compose up -d`.
+
+The 3 files named `*_forestMaskTexCache`, `*_heightTexCache` and `*_mapTexCache` in `worlds_local` are only map texture caches (PNG images) — they are NOT world saves, ignore them.
+
+Note: Valheim 0.221.13 (Public Test, May 2026) introduced a new chunked world save system that replaces `.db`/`.fwl` with chunk folders. This only affects the Public Test branch for now. When it reaches the live branch, the dedicated server converts existing `.db`/`.fwl` worlds automatically and keeps a backup first, so no action is required.
+
 ## docker-compose.yml
 
 ```yaml

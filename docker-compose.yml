@@ -9,7 +9,7 @@ services:
       - "2458:2458/udp"
     environment:
       - SERVER_NAME=kirk_Valheim_Server
-      - SERVER_WORLD=tsx_world
+      - SERVER_WORLD=KIRKS
       - SERVER_PASSWORD=123456780
       - ENABLE_PLUGINS=false
       - ENABLE_CROSSPLAY=false

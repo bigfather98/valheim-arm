@@ -1,0 +1,4 @@
+# Persistent world data - never commit save files
+valheim/persistentdata/
+valheim/server/
+logs/
